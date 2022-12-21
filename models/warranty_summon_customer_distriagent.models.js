@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transaction_Detail = sequelize.define('transaction_details', {
+    const Warranty_Summon_Customer_Distriagent = sequelize.define('warranty_summon_customer_distriagent', {
         // Model attributes are defined here
         warranty_summon_card_id: {
             type: Sequelize.STRING,
@@ -19,5 +19,5 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         timestamps: false
     });
-    return Transaction_Detail;
+    return Warranty_Summon_Customer_Distriagent;
 }

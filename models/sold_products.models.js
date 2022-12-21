@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transaction_Detail = sequelize.define('transaction_details', {
+    const Sold_Product = sequelize.define('sold_products', {
         // Model attributes are defined here
         stt: {
             type: Sequelize.STRING,
@@ -23,5 +23,5 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         timestamps: false
     });
-    return Transaction_Detail;
+    return Sold_Product;
 }
