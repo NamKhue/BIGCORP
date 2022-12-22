@@ -164,11 +164,11 @@ db.warranty_warehouse.belongsTo(db.warranty_centers, {
 })
 
 //warranty_summon_customer_distriagent
-db.warranty_summon_customer_distriagent.hasOne(db.warranty_summon_distriagents_warehouse, {
+db.warranty_summon_distriagents_warehouse.hasMany(db.warranty_summon_customer_distriagent, {
     foreignKey: 'warranty_summon_card_id'
 })
 
-db.warranty_summon_distriagents_warehouse.belongsTo(db.warranty_summon_customer_distriagent, {
+db.warranty_summon_customer_distriagent.belongsTo(db.warranty_summon_distriagents_warehouse, {
     foreignKey: 'warranty_summon_card_id',
     targetKey: 'warranty_summon_card_id'
 })
@@ -182,11 +182,11 @@ db.info_warranty_products.belongsTo(db.warranty_summon_customer_distriagent, {
     targetKey: 'warranty_summon_card_id'
 })
 
-db.warranty_summon_customer_distriagent.hasOne(db.warranty_warehouse, {
+db.warranty_warehouse.hasOne(db.warranty_summon_customer_distriagent, {
     foreignKey: 'warranty_summon_card_id'
 })
 
-db.warranty_warehouse.belongsTo(db.warranty_summon_customer_distriagent, {
+db.warranty_summon_customer_distriagent.belongsTo(db.warranty_warehouse, {
     foreignKey: 'warranty_summon_card_id',
     targetKey: 'warranty_summon_card_id'
 })
@@ -201,7 +201,7 @@ db.info_warranty_products.belongsTo(db.product_customer, {
     targetKey: 'unique_product_id'
 })
 
-db.product_customer.hasMany(db.transaction_details, {
+db.product_customer.hasOne(db.transaction_details, {
     foreignKey: 'unique_product_id'
 })
 
@@ -210,7 +210,7 @@ db.transaction_details.belongsTo(db.product_customer, {
     targetKey: 'unique_product_id'
 })
 
-db.product_customer.hasMany(db.check_warranty, {
+db.product_customer.hasOne(db.check_warranty, {
     foreignKey: 'unique_product_id'
 })
 
@@ -220,11 +220,11 @@ db.check_warranty.belongsTo(db.product_customer, {
 })
 
 //product_id
-db.info_products.hasMany(db.product_factory, {
+db.product_factory.hasMany(db.info_products, {
     foreignKey: 'product_id'
 })
 
-db.product_factory.belongsTo(db.info_products, {
+db.info_products.belongsTo(db.product_factory, {
     foreignKey: 'product_id',
     targetKey: 'product_id'
 })
@@ -247,7 +247,7 @@ db.product_distriagent.belongsTo(db.info_products, {
     targetKey: 'product_id'
 })
 
-db.info_products.hasMany(db.transaction_details, {
+db.info_products.hasOne(db.transaction_details, {
     foreignKey: 'product_id'
 })
 
@@ -275,7 +275,7 @@ db.fix_factory_warehouse.belongsTo(db.info_products, {
 })
 
 //fa_id
-db.factories.hasOne(db.product_factory, {
+db.factories.hasMany(db.product_factory, {
     foreignKey: 'fa_id'
 })
 
@@ -285,7 +285,7 @@ db.product_factory.belongsTo(db.factories, {
 })
 
 //category_id
-db.product_categories.hasOne(db.info_products, {
+db.product_categories.hasMany(db.info_products, {
     foreignKey: 'category_id'
 })
 
@@ -295,7 +295,7 @@ db.info_products.belongsTo(db.product_categories, {
 })
 
 //transaction_id
-db.transactions.hasMany(db.transaction_details, {
+db.transactions.hasOne(db.transaction_details, {
     foreignKey: 'transaction_id'
 })
 
