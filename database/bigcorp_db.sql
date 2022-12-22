@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 21, 2022 lúc 07:12 PM
+-- Thời gian đã tạo: Th12 22, 2022 lúc 08:18 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 7.4.33
 
@@ -474,7 +474,6 @@ INSERT INTO `warranty_summon_customer_distriagent` (`warranty_summon_card_id`, `
 
 CREATE TABLE `warranty_summon_distriagents_warehouse` (
   `warranty_summon_card_id` int(11) NOT NULL,
-  `da_id` int(11) NOT NULL,
   `wc_id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -483,8 +482,8 @@ CREATE TABLE `warranty_summon_distriagents_warehouse` (
 -- Đang đổ dữ liệu cho bảng `warranty_summon_distriagents_warehouse`
 --
 
-INSERT INTO `warranty_summon_distriagents_warehouse` (`warranty_summon_card_id`, `da_id`, `wc_id`, `type`) VALUES
-(1, 1, 1, 'warranty');
+INSERT INTO `warranty_summon_distriagents_warehouse` (`warranty_summon_card_id`, `wc_id`, `type`) VALUES
+(1, 1, 'warranty');
 
 -- --------------------------------------------------------
 
@@ -494,7 +493,6 @@ INSERT INTO `warranty_summon_distriagents_warehouse` (`warranty_summon_card_id`,
 
 CREATE TABLE `warranty_warehouse` (
   `warranty_summon_card_id` int(11) NOT NULL,
-  `da_id` int(11) NOT NULL,
   `wc_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -503,8 +501,8 @@ CREATE TABLE `warranty_warehouse` (
 -- Đang đổ dữ liệu cho bảng `warranty_warehouse`
 --
 
-INSERT INTO `warranty_warehouse` (`warranty_summon_card_id`, `da_id`, `wc_id`, `status`) VALUES
-(1, 1, 1, 'pending');
+INSERT INTO `warranty_warehouse` (`warranty_summon_card_id`, `wc_id`, `status`) VALUES
+(1, 1, 'pending');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -648,16 +646,14 @@ ALTER TABLE `warranty_summon_customer_distriagent`
 --
 ALTER TABLE `warranty_summon_distriagents_warehouse`
   ADD PRIMARY KEY (`warranty_summon_card_id`),
-  ADD KEY `da_id` (`da_id`,`wc_id`,`warranty_summon_card_id`),
-  ADD KEY `fk_warranty_summon_distriagents_warehouse_to_warranty_centers` (`wc_id`);
+  ADD KEY `da_id` (`wc_id`,`warranty_summon_card_id`);
 
 --
 -- Chỉ mục cho bảng `warranty_warehouse`
 --
 ALTER TABLE `warranty_warehouse`
   ADD PRIMARY KEY (`warranty_summon_card_id`),
-  ADD KEY `da_id` (`da_id`,`wc_id`),
-  ADD KEY `fk_warranty_warehouse_to_warranty_centers` (`wc_id`);
+  ADD KEY `da_id` (`wc_id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -785,14 +781,12 @@ ALTER TABLE `warranty_summon_customer_distriagent`
 --
 ALTER TABLE `warranty_summon_distriagents_warehouse`
   ADD CONSTRAINT `fk_warranty_summon_distr_to_warranty_summon_customer_distriagent` FOREIGN KEY (`warranty_summon_card_id`) REFERENCES `warranty_summon_customer_distriagent` (`warranty_summon_card_id`),
-  ADD CONSTRAINT `fk_warranty_summon_distriagents_warehouse_to_distribution_agents` FOREIGN KEY (`da_id`) REFERENCES `distribution_agents` (`da_id`),
   ADD CONSTRAINT `fk_warranty_summon_distriagents_warehouse_to_warranty_centers` FOREIGN KEY (`wc_id`) REFERENCES `warranty_centers` (`wc_id`);
 
 --
 -- Các ràng buộc cho bảng `warranty_warehouse`
 --
 ALTER TABLE `warranty_warehouse`
-  ADD CONSTRAINT `fk_warranty_warehouse_to_distribution_agents` FOREIGN KEY (`da_id`) REFERENCES `distribution_agents` (`da_id`),
   ADD CONSTRAINT `fk_warranty_warehouse_to_warranty_centers` FOREIGN KEY (`wc_id`) REFERENCES `warranty_centers` (`wc_id`),
   ADD CONSTRAINT `fk_warranty_warehouse_to_warranty_summon_customer_distriagent` FOREIGN KEY (`warranty_summon_card_id`) REFERENCES `warranty_summon_customer_distriagent` (`warranty_summon_card_id`);
 COMMIT;
