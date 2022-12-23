@@ -11,10 +11,10 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 
-// const studentRouter = require("./routes/studentRouter");
+const pcRouter = require("./routes/pcRouter");
 
 
-// app.use("/", studentRouter);
+app.use("/", pcRouter);
 
 
 app.get('/', function(req, res) {

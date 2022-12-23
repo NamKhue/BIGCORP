@@ -3,7 +3,8 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
-    dialect: dbConfig.dialect
+    dialect: dbConfig.dialect,
+    // logging: true,
 });
 
 try {
@@ -20,7 +21,7 @@ db.sequelize = sequelize;
 
 
 // begin sample
-db.customers = require("../models/customer.models")(sequelize, Sequelize);
+db.customers = require("../models/customers.models")(sequelize, Sequelize);
 db.product_customer = require("../models/product_customer.models")(sequelize, Sequelize);
 db.warranty_summon_customer_distriagent = require("../models/warranty_summon_customer_distriagent.models")(sequelize, Sequelize);
 db.bought_customer_distriagent = require("../models/bought_customer_distriagent.models")(sequelize, Sequelize);
