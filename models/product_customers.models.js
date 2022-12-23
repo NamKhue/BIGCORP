@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Product_Customer = sequelize.define('product_customer', {
+    const Product_Customer = sequelize.define('product_customers', {
         // Model attributes are defined here
         unique_product_id: {
             type: Sequelize.STRING,

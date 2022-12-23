@@ -1,17 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const Warranty_Summon_Customer_Distriagent = sequelize.define('warranty_summon_customer_distriagent', {
+    const Bought_Customer_Distriagent = sequelize.define('bought_customer_distriagents', {
         // Model attributes are defined here
-        warranty_summon_card_id: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            primaryKey: true
-        },
-        da_id: {
+        customer_id: {
             type: Sequelize.STRING,
             allowNull: false,
             // primaryKey: true
         },
-        product_id: {
+        da_id: {
             type: Sequelize.STRING,
             allowNull: false,
             // primaryKey: true
@@ -19,5 +14,5 @@ module.exports = (sequelize, Sequelize) => {
     }, {
         timestamps: false
     });
-    return Warranty_Summon_Customer_Distriagent;
+    return Bought_Customer_Distriagent;
 }

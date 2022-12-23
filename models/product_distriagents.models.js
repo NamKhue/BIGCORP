@@ -1,17 +1,22 @@
 module.exports = (sequelize, Sequelize) => {
-    const Fix_Factory_Warehouse = sequelize.define('fix_factory_warehouse', {
+    const Product_Distriagent = sequelize.define('product_distriagents', {
         // Model attributes are defined here
+        da_id: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            // primaryKey: true
+        },
         product_id: {
             type: Sequelize.STRING,
             allowNull: false,
             // primaryKey: true
         },
-        status: {
+        amount: {
             type: Sequelize.STRING,
             allowNull: false,
         },
     }, {
         timestamps: false
     });
-    return Fix_Factory_Warehouse;
+    return Product_Distriagent;
 }

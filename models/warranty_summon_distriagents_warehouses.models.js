@@ -1,6 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const Cant_Fix_Distriagent_Warehouse = sequelize.define('cant_fix_distriagent_warehouse', {
+    const Warranty_Summon_Distriagents_Warehouse = sequelize.define('warranty_summon_distriagents_warehouses', {
         // Model attributes are defined here
+        warranty_summon_card_id: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            primaryKey: true
+        },
         da_id: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -11,13 +16,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             // primaryKey: true
         },
-        product_id: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            // primaryKey: true
-        },
     }, {
         timestamps: false
     });
-    return Cant_Fix_Distriagent_Warehouse;
+    return Warranty_Summon_Distriagents_Warehouse;
 }

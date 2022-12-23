@@ -1,23 +1,26 @@
-
 module.exports = (sequelize, Sequelize) => {
-    const Check_Warranty = sequelize.define('check_warranty', {
+    const Warranty_Warehouse = sequelize.define('warranty_warehouses', {
         // Model attributes are defined here
-        unique_product_id: {
+        warranty_summon_card_id: {
             type: Sequelize.STRING,
             allowNull: false,
             primaryKey: true
         },
-        customer_id: {
+        da_id: {
             type: Sequelize.STRING,
             allowNull: false,
             // primaryKey: true
         },
-        warranty_period: {
+        wc_id: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+            // primaryKey: true
+        },
+        status: {
+            type: Sequelize.STRING,
+        },
     }, {
         timestamps: false
     });
-    return Check_Warranty;
+    return Warranty_Warehouse;
 }

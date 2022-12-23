@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const Product_Factory = sequelize.define('product_factory', {
+    const Cant_Fix_Distriagent_Warehouse = sequelize.define('cant_fix_distriagent_warehouses', {
         // Model attributes are defined here
-        stt: {
+        da_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            primaryKey: true
+            // primaryKey: true
         },
-        fa_id: {
+        wc_id: {
             type: Sequelize.STRING,
             allowNull: false,
             // primaryKey: true
@@ -16,12 +16,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             // primaryKey: true
         },
-        amount: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
     }, {
         timestamps: false
     });
-    return Product_Factory;
+    return Cant_Fix_Distriagent_Warehouse;
 }

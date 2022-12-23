@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
         product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
+            primaryKey: true
         },
         category_id: {
             type: Sequelize.STRING,
