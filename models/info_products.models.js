@@ -9,7 +9,6 @@ module.exports = (sequelize, Sequelize) => {
         category_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         name: {
             type: Sequelize.STRING,

@@ -4,17 +4,16 @@ module.exports = (sequelize, Sequelize) => {
         stt: {
             type: Sequelize.STRING,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true
         },
         fa_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         amount: {
             type: Sequelize.STRING,

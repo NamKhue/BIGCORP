@@ -4,17 +4,15 @@ module.exports = (sequelize, Sequelize) => {
         unique_product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
+            primaryKey: true
         },
         customer_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         warranty_period: {
             type: Sequelize.STRING,
@@ -24,11 +22,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        still_in_warranty_period: {
+        times_of_warranty: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        times_of_warranty: {
+        times_of_summon: {
             type: Sequelize.STRING,
             allowNull: false,
         },

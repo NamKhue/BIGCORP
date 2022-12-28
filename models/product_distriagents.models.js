@@ -1,15 +1,18 @@
 module.exports = (sequelize, Sequelize) => {
     const Product_Distriagent = sequelize.define('product_distriagents', {
         // Model attributes are defined here
+        stt: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            primaryKey: true
+        },
         da_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         amount: {
             type: Sequelize.STRING,

@@ -9,12 +9,11 @@ module.exports = (sequelize, Sequelize) => {
         customer_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
-        status: {
+        da_id: {
             type: Sequelize.STRING,
             allowNull: false,
-        }
+        },
     }, {
         timestamps: false
     });

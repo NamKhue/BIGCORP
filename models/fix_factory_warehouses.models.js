@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
     const Fix_Factory_Warehouse = sequelize.define('fix_factory_warehouses', {
         // Model attributes are defined here
-        product_id: {
+        unique_product_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
+            primaryKey: true
         },
-        status: {
+        warranty_summon_card_id: {
             type: Sequelize.STRING,
             allowNull: false,
         },

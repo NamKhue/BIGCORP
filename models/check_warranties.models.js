@@ -10,7 +10,6 @@ module.exports = (sequelize, Sequelize) => {
         customer_id: {
             type: Sequelize.STRING,
             allowNull: false,
-            // primaryKey: true
         },
         warranty_period: {
             type: Sequelize.STRING,

@@ -13,12 +13,16 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 // import routers
-const pcRouter = require("./routes/pcRouter");
-const faRouter = require("./routes/faRouter");
+const pc_router = require("./routes/pc_router");
+const fa_router = require("./routes/fa_router");
+const da_router = require("./routes/da_router");
+const wc_router = require("./routes/wc_router");
 
 // use routers
-app.use("/", pcRouter);
-app.use("/", faRouter);
+app.use("/", pc_router);
+app.use("/", fa_router);
+app.use("/", da_router);
+app.use("/", wc_router);
 
 
 // sample UI
