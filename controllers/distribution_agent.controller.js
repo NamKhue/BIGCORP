@@ -29,14 +29,12 @@ module.exports = {
 
     sellProduct: async (req, res) => {
         let transaction_id = req.body.transaction_id;
-        let da_id = req.body.da_id;
         let customer = req.body.customer;
         let products = req.body.products;
 
         try {
             if (
-                !transaction_id || 
-                !da_id || 
+                !transaction_id ||
                 !customer || 
                 !products
             ) {
@@ -46,16 +44,6 @@ module.exports = {
                 });
             }
             else {
-                // new transaction
-                db.transactions.create({
-                    transaction_id: transaction_id,
-                    customer_id: customer.customer_id,
-                    da_id: da_id,
-                })
-                .catch(error => {
-                    res.status(400).send(error);
-                });
-
                 // new customer
                 let customer_id = customer.customer_id;
                 let name = customer.name;
@@ -80,8 +68,19 @@ module.exports = {
                     });
                 }
 
+                // new transaction
+                db.transactions.create({
+                    transaction_id: transaction_id,
+                    customer_id: customer.customer_id,
+                })
+                .catch(error => {
+                    res.status(400).send(error);
+                });
+
                 // minus amount of products in distribution agents' warehouse
                 products.forEach(async product => {
+                    let da_id = product.da_id;
+                    let unique_product_id = product.unique_product_id;
                     let product_id = product.product_id;
                     let quantity_ordered = product.quantity_ordered;
     
@@ -102,9 +101,10 @@ module.exports = {
 
                         // new transaction_details
                         db.transaction_details.create({
-                            stt: req.body.stt,
                             transaction_id: transaction_id,
+                            da_id: da_id,
                             product_id: product_id,
+                            unique_product_id: unique_product_id,
                             quantity_ordered: quantity_ordered,
                         })
                         .catch(error => {
@@ -121,7 +121,7 @@ module.exports = {
                         });
 
                         let warranty_period = dateForReferring.warranty_period;
-                        let unique_product_id = product.unique_product_id;
+                        // let unique_product_id = temp_product.unique_product_id;
 
                         // add products to product_customers table
                         db.product_customers.create({
@@ -131,7 +131,8 @@ module.exports = {
                             warranty_period: warranty_period,
                             fix_status: 0,
                             still_in_warranty_period: 1,
-                            times_of_warranty: 0
+                            times_of_warranty: 0,
+                            times_of_summon: 0
                         })
                         .catch(error => {
                             res.status(400).send(error);
@@ -153,6 +154,11 @@ module.exports = {
                 });
 
                 return res.status(200).send(`Successfully sold`);
+                // res.render('distribution_agent/sell_product', {
+                //     successMsg: [
+                //         'successfully sold products'
+                //     ],
+                // })
             }
         }
         catch(err) {
@@ -209,7 +215,7 @@ module.exports = {
                         customer_id: customer_id,
                         unique_product_id: unique_product_id,
                         wc_id: wc_id,
-                        status: status
+                        status: status,
                     })
                     .catch(error => {
                         res.status(400).send(error);

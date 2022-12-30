@@ -55,10 +55,16 @@ body#page-top.fixed-nav.sticky-footer
                 h1 Quản lý danh mục các cơ sở
             
             div
-                label(for='cars') Choose a category:
-                select#cars
-                    option(value='audi' selected='') Audi
-                    option(value='volvo') Volvo
+                form#tableForm(method="get" action="/parentcompany/manage_facility")
+                    label(for='cars') Choose a category:
+                    |   
+                    //- select#cars(name="choose_facility")
+                    //-     option(value='0' selected='') Chọn
+                    //-     option(value='1') Cơ sở sản xuất
+                    //-     option(value='2') Đại lý phân phối
+                    //-     option(value='3') Trung tâm bảo hành
+                    input(method="get" action="/parentcompany/manage_facility" name="choose_facility")
+                    button Search
             
             // Example DataTables Card
             .card.mb-3
@@ -68,13 +74,17 @@ body#page-top.fixed-nav.sticky-footer
                             table#dataTable.table.table-bordered(width='100%' cellspacing='0')
                                 thead
                                     tr
-                                        th Name
-                                        th Position
-                                        th Office
-                                        th Age
-                                        th Start date
-                                        th Salary
+                                        //- th ID
+                                        th Tên
+                                        th Địa chỉ
                                 tbody
+                                    //- each item in dataResult
+                                    //-     //- th #{item.id}
+                                    //-     td
+                                    //-         td= item.name
+                                    //-     td
+                                    //-         td= item.address
+
             // /.container-fluid
             // /.content-wrapper
             

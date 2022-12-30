@@ -115,12 +115,12 @@ db.warranty_warehouses.belongsTo(db.distribution_agents, {
 
 // warranty_summon_card_id
 db.fix_factory_warehouses.hasMany(db.warranty_warehouses, {
-    foreignKey: 'unique_product_id'
+    foreignKey: 'product_id'
 })
 
 db.warranty_warehouses.belongsTo(db.fix_factory_warehouses, {
-    foreignKey: 'unique_product_id',
-    targetKey: 'unique_product_id'
+    foreignKey: 'product_id',
+    targetKey: 'product_id'
 })
 
 //unique_product_id

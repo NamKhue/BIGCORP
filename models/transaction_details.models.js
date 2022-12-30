@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        da_id: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         unique_product_id: {
             type: Sequelize.STRING,
             allowNull: false,

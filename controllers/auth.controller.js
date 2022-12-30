@@ -4,10 +4,30 @@ const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
 const db = require("../database/connectDB");
-const authMiddleware = require('../middlewares/auth.middleware');
-let {generateAccessToken} = require("../utils/auth.utils");
+let authUtils = require("../utils/auth.utils");
 
 module.exports = {
+    // validate: (method) => {
+    //     switch (method) {
+    //         case 'login': {
+    //             return [ 
+    //                 body('username').custom(value => {
+    //                     if (value == '') {
+    //                         return Promise.reject('Username is empty');
+    //                     }
+    //                 }),
+    //                 body('password').isStrongPassword({
+    //                     minLength: 8,
+    //                     minLowercase: 1,
+    //                     minUppercase: 1,
+    //                     minNumbers: 1
+    //                 })
+    //                 .withMessage("Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number"),
+    //             ]   
+    //         }
+    //     }
+    // },
+    
     uiLogin: async (req, res) => {
         try {
             res.render('auth/login');
@@ -20,12 +40,36 @@ module.exports = {
 
     login: async (req, res) => {
         try {
-            let username = req.body.username.toLowerCase() || 'parentcompany1';
-            let password = req.body.password || 'parentcompany1';
+            let username = req.body.username.toLowerCase();
+            let password = req.body.password;
             
-            // const token = await generateAccessToken({ username: username });
+            // const token = await authUtils.generateAccessToken({ username: username });
 
             // console.log(token + '\n');
+
+
+
+
+            if (!username) {
+                // res.render('auth/login', {
+                //     errors: [
+                //         'username is empty',
+                //     ]
+                // });
+                // return;
+             
+                return res.status(404).json('tài khoản đang trống');
+            }
+            if (!password) {
+                // res.render('auth/login', {
+                //     errors: [
+                //         'password is empty',
+                //     ]
+                // });
+                // return;
+             
+                return res.status(404).json('mật khẩu đang trống');
+            }
             
             let user = await db.accounts.findOne({
                 where: {
@@ -34,28 +78,32 @@ module.exports = {
             });
             
             if (!user) {
-                res.render('auth/login', {
-                    errors: [
-                        'This user doesnt exist'
-                    ],
-                    values: req.body
-                });
-                return;
+                // res.render('auth/login', {
+                //     errors: [
+                //         'This user doesnt exist'
+                //     ],
+                //     values: req.body
+                // });
+                // return;
+
+                return res.status(404).json('không tồn tại');
+            }
+            
+            const isPasswordValid = bcrypt.compareSync(password, user.password);
+            if (!isPasswordValid) {
+                // res.render('auth/login', {
+                //     errors: [
+                //         'Wrong password!'
+                //     ],
+                //     values: req.body
+                // });
+                // return;
+                
+                return res.status(404).json('sai mật khẩu');
             }
 
-            // const isPasswordValid = bcrypt.compareSync(password, user.password);
-            let hashPassword = bcrypt.hashSync(password, SALT_ROUNDS);
-            const isPasswordValid = password == user.password;
-            if (!isPasswordValid) {
-                // console.log(hashPassword + '\n' + user.password);
-                res.render('auth/login', {
-                    errors: [
-                        'Wrong password!'
-                    ],
-                    values: req.body
-                });
-                return;
-            }
+
+
 
             // const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
             // const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
@@ -116,6 +164,9 @@ module.exports = {
             // });
 
             res.redirect('/parentcompany/register');
+            
+
+            // return res.status(200).json("dang nhap thanh cong")
         }
         catch(err) {
             console.log(err)

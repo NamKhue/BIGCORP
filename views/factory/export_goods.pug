@@ -2,7 +2,7 @@ doctype html
 head
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    title Trang chu
+    title Phiếu xuất kho cho Đại lý phân phối
     link(rel="stylesheet", href="/styles/factory/index.css")
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css')
@@ -44,4 +44,45 @@ body#page-top.fixed-nav.sticky-footer
                         |   Logout
 
     // ui rieng
-    
+    .content-wrapper
+        .container-fluid
+            .flex-wrapper
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                button.save
+                                    |   Lưu
+                            </th>
+                            <th>Tên ngành hàng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                form.form(method='POST')
+                    .create-header
+                        h1 Thông tin sản phẩm
+                    .create-content
+                        .form-item
+                            label Tên ngành hàng
+                            select(name='' id='')
+                                option(value='') 
+                        .form-item
+                            label Tên sản phẩm
+                            select(name='' id='')
+                                option(value='') 
+                        .form-item
+                            label Số lượng
+                            input#amount(type='text' placeholder='Quantity')
+                    .button
+                        button
+                            |   Thêm

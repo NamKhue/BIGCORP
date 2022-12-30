@@ -1,5 +1,7 @@
 const db = require("../database/connectDB");
 
+const { validationResult } = require('express-validator');
+
 module.exports = {
     home: async (req, res) => {
         try {
@@ -66,64 +68,71 @@ module.exports = {
         let products = req.body.products;
         
         try {
-            if (
-                !fa_id || 
-                !products
-            ) {
-                res.status(400).send({
-                    status: false,
-                    message: ''
+            // if (
+            //     !fa_id || 
+            //     !products
+            // ) {
+            //     res.status(400).send({
+            //         status: false,
+            //         message: ''
+            //     });
+            // }
+            // else {
+
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    success: false,
+                    errors: errors.array()
                 });
             }
-            else {
-                products.forEach(async item => {
-                    // let msg = '';
-                    let old_product = await db.product_factories.findOne({
-                        where: {
-                            fa_id: fa_id,
-                            product_id: item.product_id,
-                        }
+            
+            products.forEach(async item => {
+                let old_product = await db.product_factories.findOne({
+                    where: {
+                        fa_id: fa_id,
+                        product_id: item.product_id,
+                    }
+                });
+
+                if (old_product) {
+                    old_product.set({
+                        amount: parseInt(old_product.amount) + parseInt(item.amount)
                     });
 
-                    if (old_product) {
-                        old_product.set({
-                            amount: parseInt(old_product.amount) + parseInt(item.amount)
-                        });
+                    old_product.save();
+                }
+                else {
+                    db.product_factories.create({
+                        stt: stt,
+                        fa_id: fa_id,
+                        product_id: item.product_id,
+                        amount: item.amount
+                    })
+                    .catch(error => {
+                        res.status(400).send(error);
+                    });
+                }
+            });
 
-                        old_product.save();
-                        // msg += `Successfully changed the amount of product has ID = ${item.product_id}\n`;
-                    }
-                    else {
-                        db.product_factories.create({
-                            stt: stt,
-                            fa_id: fa_id,
-                            product_id: item.product_id,
-                            amount: item.amount
-                        })
-                        // .then(data => msg += `Successfully added new goods with ID = ${item.product_id}\n`)
-                        .catch(error => {
-                            res.status(400).send(error);
-                        });
-                    }
-                });
+            // let productResult = await db.info_products.findAll({
+            //     raw: true,
+            //     include: [
+            //         {
+            //             model: db.product_factories,
+            //             attributes: ['name'],
+            //         }
+            //     ]
+            // });
 
-                let productResult = await db.info_products.findAll({
-                    raw: true,
-                    include: [
-                        {
-                            model: db.product_factories,
-                            attributes: ['name'],
-                        }
-                    ]
-                });
+            // res.render('factory/import_goods', {
+            //     msg: `Successfully imported into factory's warehouse`,
+            //     productResult
+            // });
 
-                res.render('factory/import_goods', {
-                    msg: `Successfully imported into factory's warehouse`,
-                    productResult
-                });
-
-                // return res.status(200).send(`Successfully imported into factory's warehouse`);
-            }
+        return res.status(200).send(`Successfully imported into factory's warehouse`);
+            // }
         }
         catch(err) {
             return res.status(500).json("lỗi server")

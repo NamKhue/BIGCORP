@@ -4,42 +4,37 @@ html
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
 
   body
-
     .header
       span Welcome to BigCorp
+    
+    .box-error
+      if errors
+        each err in errors
+          .alert.alert-danger= err
 
     .form
       .form-toggle
       .form-panel.one
         .form-header
           h1 Account Login
-    
-        if errors
-          each error in errors
-            .alert.alert-danger= error
-    
         .form-content
           form(method='POST')
             .form-group
               label(for='username') Username
-              input#username(type='text', name='username')
+              input#username(type='text' name='username')
             .form-group
               label(for='password') Password
-              input#password(type='password', name='password')
-            .form-group
-              label.form-remember
-                input(type='checkbox')
-                | Remember Me
-              a.form-recovery(href='#') Forgot Password?
+              input#password(type='password' name='password')
             .role
               span You are:
-              select(name='', id='')
+              select(name='' id='')
                 option(value='Admin') Admin
                 option(value='Factory') Factory
                 option(value='Agent') Agent
                 option(value='Customer') Customer
             .form-group
               button(type='submit') Log In
+
 
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
   

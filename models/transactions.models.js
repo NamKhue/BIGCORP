@@ -10,10 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        da_id: {
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
+        // da_id: {
+        //     type: Sequelize.STRING,
+        //     allowNull: false,
+        // },
     }, {
         timestamps: false
     });

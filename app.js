@@ -33,10 +33,16 @@ let authMiddleware = require('./middlewares/auth.middleware');
 
 // use routers
 app.use("/", auth_router);
-app.use("/", authMiddleware.requiredAuth, pc_router);
+
+app.use("/", pc_router);
 app.use("/", fa_router);
 app.use("/", da_router);
 app.use("/", wc_router);
+
+// app.use("/", authMiddleware.requiredAuth, pc_router);
+// app.use("/", authMiddleware.requiredAuth, fa_router);
+// app.use("/", authMiddleware.requiredAuth, da_router);
+// app.use("/", authMiddleware.requiredAuth, wc_router);
 
 // set port for running server
 const PORT = process.env.PORT || 8080;

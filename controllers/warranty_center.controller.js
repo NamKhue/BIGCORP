@@ -29,14 +29,14 @@ module.exports = {
 
     moveGoodsToFactory: async (req, res) => {
         try {
-            let unique_product_id = req.body.unique_product_id;
+            let product_id = req.body.product_id;
             let warranty_summon_card_id = req.body.warranty_summon_card_id;
 
             // note  change unique id to normal ones
 
             // warranty_summon_distriagents_warehouses
             db.fix_factory_warehouses.create({
-                unique_product_id: unique_product_id,
+                product_id: product_id,
                 warranty_summon_card_id: warranty_summon_card_id,
             })
             .catch(error => {
