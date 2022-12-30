@@ -1,6 +1,32 @@
 const db = require("../database/connectDB");
 
 module.exports = {
+    home: async (req, res) => {
+        try {
+            res.render("distribution_agent", {});
+        }
+        catch(err) {
+            res.render('distribution_agent', {
+                errors: [
+                    "system error"
+                ],
+            })
+        }
+    },
+    
+    uiSellProduct: async (req, res) => {
+        try {
+            res.render("distribution_agent/sell_product", {});
+        }
+        catch(err) {
+            res.render('distribution_agent', {
+                errors: [
+                    "system error"
+                ],
+            })
+        }
+    },
+
     sellProduct: async (req, res) => {
         let transaction_id = req.body.transaction_id;
         let da_id = req.body.da_id;

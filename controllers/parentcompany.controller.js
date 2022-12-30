@@ -1,7 +1,90 @@
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 const db = require("../database/connectDB");
+let generateAccessToken = require("../utils/auth.utils");
 
 module.exports = {
+    home: async (req, res) => {
+        try {
+            res.render("parentcompany", {});
+        }
+        catch(err) {
+            console.log(err);
+            return res.status(500).json("lỗi server");
+        }
+    },
+
+    uiRegister: async (req, res) => {
+        try {
+            res.render("parentcompany/register", {});
+        }
+        catch(err) {
+            console.log(err);
+            return res.status(500).json("lỗi server");
+        }
+    },
+
+    register: async (req, res) => {
+        try {
+            let id = req.body.id;
+            let role_id = req.body.role_id;
+            let username = req.body.username.toLowerCase();
+            let password = req.body.password;
+            let status = req.body.status.toLowerCase();
+
+            let hasUsernameBefore = await db.accounts.findOne({
+                where: {
+                    username: username,
+                },
+            });
+
+            if (hasUsernameBefore) {
+                // res.render('parentcompany/register', {
+                //     errors: [
+                //         'Tên tài khoản đã tồn tại'
+                //     ]
+                // });
+                res.json('Tên tài khoản đã tồn tại');
+            }
+	        else {
+                const token = await generateAccessToken({ username: username });
+                const hashPassword = bcrypt.hashSync(password, SALT_ROUNDS);
+
+                // insert data to table
+                db.accounts.create({
+                    id: id,
+                    role_id: role_id,
+                    username: username,
+                    password: hashPassword,
+                    status: status,
+                    TOKEN_KEY: token
+                })
+                .catch(error => {
+                    res.status(400).send(error);
+                    // 
+                });
+                
+                return res.status(200).json('successfully created account');
+                // res.render('');
+            }
+        }
+        catch(err) {
+            console.log(err)
+            return res.status(500).json("lỗi server")
+        }
+    },
+
+    uiManageCategoryProduct: async (req, res) => {
+        try {
+            res.render("parentcompany/manage_category_product", {});
+        }
+        catch(err) {
+            console.log(err)
+            return res.status(500).json("lỗi server")
+        }
+    },
+
     getAllProductsAccordingToCategory: async (req, res) => {
         try {
             const id = req.params.id;
@@ -16,7 +99,18 @@ module.exports = {
                 msg: 'get all factories successfully',
                 products
             })
-        } catch(err) {
+        }
+        catch(err) {
+            console.log(err)
+            return res.status(500).json("lỗi server")
+        }
+    },
+
+    uiManageFacility: async (req, res) => {
+        try {
+            res.render("parentcompany/manage_facility", {});
+        }
+        catch(err) {
             console.log(err)
             return res.status(500).json("lỗi server")
         }
@@ -47,7 +141,8 @@ module.exports = {
                 msg: 'successfully get all locations',
                 data
             })
-        } catch(err) {
+        }
+        catch(err) {
             console.log(err)
             return res.status(500).json("lỗi server")
         }
@@ -126,35 +221,4 @@ module.exports = {
             return res.status(500).json("lỗi server")
         }
     },
-
-    provideAccount: async (req, res) => {
-        try {
-            let id = req.body.id;
-            let role_id = req.body.role_id;
-            let username = req.body.username;
-            let password = req.body.password;
-            let status = req.body.status;
-
-            // check username and password
-
-
-            // insert data to table
-            db.accounts.create({
-                id: id,
-                role_id: role_id,
-                username: username,
-                password: password,
-                status: status
-            })
-            .catch(error => {
-                res.status(400).send(error);
-            });
-            
-            return res.status(200).json('successfully created account');
-        }
-        catch(err) {
-            console.log(err)
-            return res.status(500).json("lỗi server")
-        }
-    }
 }   

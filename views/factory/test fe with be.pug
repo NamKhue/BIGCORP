@@ -1,0 +1,17 @@
+if errors
+    each error in errors
+        .alert.alert-danger= error
+
+table
+    tr
+        th STT
+        th Các cơ sở
+        th Sản phẩm
+        th Số lượng
+    - var i = 1
+    each product in allProducts
+        tr
+            th= i++
+            th= product.fa_id
+            th= product.product_id
+            th= product.amount

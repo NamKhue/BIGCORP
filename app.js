@@ -1,6 +1,14 @@
+const dotenv = require('dotenv');
+// get config vars
+dotenv.config();
+
 // import packages
 const express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+const jwt = require("jsonwebtoken");
+// const cors = require('cors');
+// const createError = require('http-errors');
 
 const app = express();
 
@@ -11,32 +19,27 @@ app.set('views', './views');
 app.use(express.urlencoded());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
+app.use(cookieParser(process.env.SESSION_SECRET));
+
+app.use(express.static('public'));
 
 // import routers
-const pc_router = require("./routes/pc_router");
-const fa_router = require("./routes/fa_router");
-const da_router = require("./routes/da_router");
-const wc_router = require("./routes/wc_router");
+const auth_router = require("./routes/auth.route");
+const pc_router = require("./routes/pc.route");
+const fa_router = require("./routes/fa.route");
+const da_router = require("./routes/da.route");
+const wc_router = require("./routes/wc.route");
+let authMiddleware = require('./middlewares/auth.middleware');
 
 // use routers
-app.use("/", pc_router);
+app.use("/", auth_router);
+app.use("/", authMiddleware.requiredAuth, pc_router);
 app.use("/", fa_router);
 app.use("/", da_router);
 app.use("/", wc_router);
 
-
-// sample UI
-// app.get('/', function(req, res) {
-//     res.render('index');
-// });
-
-// app.get('/users', function(req, res) {
-//     res.render('users/index');
-// });
-
-
 // set port for running server
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

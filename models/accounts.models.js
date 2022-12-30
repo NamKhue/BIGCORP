@@ -22,6 +22,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        TOKEN_KEY: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        refreshToken: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
     }, {
         timestamps: false
     });

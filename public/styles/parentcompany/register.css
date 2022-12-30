@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    width: 1530px;
+    background-color: #ccc;
+    height: 70px;
+    position: relative;
+}
+
+.header span {
+    font-size: 55px;
+    padding: 40px;
+    text-align: center;
+}
+
+.menu {
+    width: 200px;
+    background-color: #eee;
+    height: 675px;
+}
+
+.menu ul {
+    position: absolute;
+    background: #eee;
+    width: 200px;
+    list-style-type: none;
+    top: 150px;
+}
+
+.menu ul li {
+    width: auto;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid black;
+}
+
+.menu ul li:first-child {
+    border-top: 1px solid black;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: red;
+    display: block;
+    padding: 0 1em;
+    font-size: 20px;
+}
+
+.menu ul li a:hover {
+    background-color: #cfcfcf;
+    width: 100%;
+    transition: 0.5s;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    justify-content: center;
+    background-color: #cfcfcf;
+    width: 1330px;
+    height: 675px;
+    top: 70px;
+    right: 6px;
+}
+
+.form {
+    width: 450px;
+    border: 0.5px solid black;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-container {
+    width: 350px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    padding: 4em;
+    height: 430px;
+}
+
+.create-header {
+    text-align: center;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-top: -40px;
+}
+
+.create-header h1 {
+    font-size: 45px;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
+.form-item input[type="text"],
+input[type="password"] {
+    width: 340px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: background 0.5s;
+    padding-left: 20px;
+}
+
+.form-item ::placeholder {
+    padding-left: 15px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.button button {
+    border: none;
+    outline: none;
+    width: 340px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+}
+
+.create-footer {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-top: 10px;
+}
+
+.button button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.create-footer p:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.role {
+    padding-top: 10px;
+}
+
+.role select {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #ccc;
+}
